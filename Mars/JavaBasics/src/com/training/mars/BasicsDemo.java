@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 
 
+/**
+ * @author rajarambalakrishnan
+ *
+ */
 public class BasicsDemo {
 	
 	
@@ -30,7 +34,45 @@ public class BasicsDemo {
 		//pattern(5);
 		//newpattern(5);
 		
+		//int num[][] = { {1,2,3,4},{5,6},{7,8,9}};
+		
+		//Declare-B
+		int num[][] = new int[3][4];
+		//int num1[][] = { {1,2,3,4},{5,6},{7,8,9}};
+		//num = num1;
+		
+		/*for (int i=0;i<num.length;i++) {
+			for(int j=0;j<num[i].length;j++) {
+				System.out.println("[][]"+i+"-"+j+" is "+num[i][j]);
+			}
+		}
+		
+		System.out.println("[1][3] is "+num[1][3]);
+		*/
+		
+		int[] arr = new int[6];
+		
+		for(int i=0;i<6;i++) {
+			System.out.println("Enter a value: ");
+			arr[i]=scanner.nextInt();
+		}
+		
+		oddEven(arr);
 		scanner.close();
+	}
+	
+	public static void oddEven(int[] arr) {
+		
+		int odd=0, even = 0;
+		for(int val:arr) {
+			if((val%2)==0) {
+				even ++;
+			}
+			else
+				odd++;
+		}
+		System.out.println("No. of odd No: "
+				+odd+ "No. of Even No: "+even);
 	}
 	
 	public static void newpattern(int n) {
@@ -53,6 +95,8 @@ public class BasicsDemo {
 			System.out.println();
 		}
 	}
+	
+	
 	
 	public static void LuckyNumberGuess(Scanner scanner) {
 		int attempts = 0;
