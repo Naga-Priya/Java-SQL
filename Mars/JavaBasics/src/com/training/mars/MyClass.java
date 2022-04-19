@@ -3,6 +3,9 @@ package com.training.mars;
 public class MyClass {
 
 	static int age;
+	
+	
+	//public static void main(String args[]) throws MyException {
 	public static void main(String args[]) {
 		System.out.println("My First Java Program");
 		//sysout
@@ -36,6 +39,33 @@ public class MyClass {
 		
 		System.out.println(p2.getPersonInfo());
 		
+//		if(p1.getWeight()>75) {
+//			throw new MyException("Threshold weight reached");
+//		}
+		
+		// instead of throwing the exception and handling it as checked exception
+		// we can throw them inside try anc catch block
+		
+		//Lets change the threshold limit to check if finally is
+		//executed when there is no exception
+		//Yes: even if throw statement is not executed still finally
+		//block is exceuted.
+		try {
+			if(p1.getWeight()>75) {
+				throw new MyException("Threshold weight reached");
+			}
+		}
+		catch(MyException e) {
+			System.out.println("Weight > 75!! Invalid");
+		}
+		finally {
+			//Thisblock will always Execute whether or npt
+			// an exception occurs
+			//this block can be used to perform clean up activities
+			System.out.println("Perform Clean up here");
+			MyException me = new MyException("New Exception");
+			me.calculate();
+		}
 		
 		}
 }

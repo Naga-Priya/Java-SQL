@@ -2,6 +2,7 @@ package com.training.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,11 +35,16 @@ public class FetchProducts {
 			System.out.println("Connection Refused!!");
 		}
 		
-		String Query = "select * from product";
+		String Query = "select * from product where prod_desc = ? and price > ?";
 		
-		Statement stmt =con.createStatement();
+		//Statement stmt =con.createStatement();
 		
-		ResultSet rs = stmt.executeQuery(Query);
+		//PreparedStatement stmt =con.prepareStatement(Query);
+		PreparedStatement stmt =con.prepareStatement(Query);
+		
+		stmt.setString(1, "HP");	
+		stmt.setDouble(2, 250.0);
+		ResultSet rs = stmt.executeQuery();
 		
 		if(rs!=null) {
 			List<Product> productList = new ArrayList();
@@ -60,8 +66,38 @@ public class FetchProducts {
 			System.out.println("No results found in Table!");
 		}
 		
+		int num1 = 0;
+		int result = 0;
+		String str = null;
 		
+		try {
+			//result = num1/0;
+			str.length();
+		}
+		catch(ArithmeticException e) {
+			System.out.println("Divide by zero");
+			result = -1;
+		}
+//		catch(NullPointerException e) {
+//			System.out.println("Null pointer");
+//			System.out.println(e.getMessage());
+//		}
+		catch(Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		
+		System.out.println(result);
 		
 	}
 
 }
+
+/* Checked exceptions or compile time exceptions are the exceptions thrown
+ * by compiler during compilation.
+ * 
+ * Unchecked Exception or Runtime Exception are exceptions like divide by zero, that occurs at runtime.
+ * we can handle it by wrapping it in try block and catch the exception in
+ * catch block. When exception type is not known we can catch Generic exception
+ * 'Exception' type.
+ */
