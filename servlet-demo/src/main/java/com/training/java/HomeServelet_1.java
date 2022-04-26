@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.training.service.HomeService;
+
 /**
  * Servlet implementation class HomeServelet_1
  */
@@ -32,23 +34,23 @@ public class HomeServelet_1 extends HttpServlet {
     public HomeServelet_1() throws ClassNotFoundException, SQLException {
         super();
         // TODO Auto-generated constructor stub
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-		
-		String url = "jdbc:sqlserver://localhost:1433;"
-				+"databaseName=MarsLearning;"+
-				"encrypt=true;trustServerCertificate=true";
-		
-		String user = "sa";
-		
-		String password = "bigStrongPwd";
-		
-		con =DriverManager.getConnection(url,user,password);  
-		if(con!=null) {
-			System.out.println("Connection established Successfully!!");
-		}
-		else {
-			System.out.println("Connection Refused!!");
-		}
+//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
+//		
+//		String url = "jdbc:sqlserver://localhost:1433;"
+//				+"databaseName=MarsLearning;"+
+//				"encrypt=true;trustServerCertificate=true";
+//		
+//		String user = "sa";
+//		
+//		String password = "bigStrongPwd";
+//		
+//		con =DriverManager.getConnection(url,user,password);  
+//		if(con!=null) {
+//			System.out.println("Connection established Successfully!!");
+//		}
+//		else {
+//			System.out.println("Connection Refused!!");
+//		}
         
     }
 
@@ -88,31 +90,57 @@ public class HomeServelet_1 extends HttpServlet {
 		String password = request.getParameter("pwd");
 		System.out.println("validating credentials..."+userName+"-"+password);
 		
-		if(con!=null) {
-			try {
-				String Query = "select * from mluser where name = ? and password = ?";
-				
-				PreparedStatement stmt =con.prepareStatement(Query);
-				
-				stmt.setString(1, userName);	
-				stmt.setString(2,password);
-				ResultSet rs = stmt.executeQuery();
-				
-				if(rs.next()) {
-					request.setAttribute("userName", userName);
-					RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-					rd.forward(request, response);
-				}
-				else {
-					RequestDispatcher rd = request.getRequestDispatcher("InvalidAccess.jsp");
-					rd.forward(request, response);
-				}
+		HomeService service = new HomeService();
+		
+		try {
+			if (service.validateUser(userName, password)) {
+				request.setAttribute("userName", userName);
+				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+				rd.forward(request, response);
 			}
-			catch (SQLException e) {
-				System.out.println("SQL exception occured");
+			else {
+				RequestDispatcher rd = request.getRequestDispatcher("InvalidAccess.jsp");
+				rd.forward(request, response);
 			}
-			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+//		if(con!=null) {
+//			try {
+//				String Query = "select * from mluser where name = ? and password = ?";
+//				
+//				PreparedStatement stmt =con.prepareStatement(Query);
+//				
+//				stmt.setString(1, userName);	
+//				stmt.setString(2,password);
+//				ResultSet rs = stmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					request.setAttribute("userName", userName);
+//					RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+//					rd.forward(request, response);
+//				}
+//				else {
+//					RequestDispatcher rd = request.getRequestDispatcher("InvalidAccess.jsp");
+//					rd.forward(request, response);
+//				}
+//			}
+//			catch (SQLException e) {
+//				System.out.println("SQL exception occured");
+//			}
+//			
+//		}
 		
 //		if(userName.equalsIgnoreCase("priya")&&
 //				password.equalsIgnoreCase("password")) {
