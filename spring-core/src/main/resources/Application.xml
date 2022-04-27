@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context = "http://www.springframework.org/schema/context"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+<context:annotation-config/>
+
+ <!-- <bean id ="person" class = "com.training.spring.Person" autowire = "byName"> -->
+
+<!-- <bean id ="person" class = "com.training.spring.Person" autowire = "byType"> -->
+
+<bean id ="person" class = "com.training.spring.Person" >
+<property name = "firstName" value = "David" />
+
+
+<constructor-arg name ="age" value = "23"/>
+
+<!-- <property name = "car" ref = "car1"/> -->
+
+
+</bean>
+
+ <bean id ="car1" class = "com.training.spring.Car">
+
+<property name = "make" value = "Honda" />
+<property name = "model" value ="civic" />
+<property name = "year" value ="2020" />
+
+
+
+
+
+
+</bean>
+
+</beans>
+<!-- 
+Setter based injection
+Constructor based injection
+How to inject an object - setter/constructor/autowire/annotations
+
+ -->
